@@ -1,0 +1,159 @@
+import React, { useState } from 'react';
+
+const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+  
+  // Phone validation aur error state manage karne ke liye
+  const [phoneError, setPhoneError] = useState('');
+
+  // Sirf numbers allow karne ke liye aur real-time state update karne ke liye
+  const handlePhoneChange = (e) => {
+    const value = e.target.value;
+    // Yeh regex check karega ke sirf digits (0-9) enter hon aur length 11 se zyada na ho
+    const numericValue = value.replace(/[^0-9]/g, '');
+    
+    if (numericValue.length <= 11) {
+      setFormData({ ...formData, phone: numericValue });
+      // Agar user length sahi kar raha hai to error sath sath khatam ho jaye
+      if (numericValue.length === 11 && numericValue.startsWith('03')) {
+        setPhoneError('');
+      }
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Standard Pakistani Mobile Number Format Regex (Starts with 03 and exactly 11 digits)
+    const phoneRegex = /^03\d{9}$/;
+
+    if (!phoneRegex.test(formData.phone)) {
+      setPhoneError('Please enter a valid 11-digit phone number starting with 03 (e.g., 03001234567).');
+      return; // Submission rokne ke liye
+    }
+
+    // Clear any remaining errors if validation passes
+    setPhoneError('');
+
+    // Frontend logic for submission (Abhi alert show karega)
+    alert(`Thank you ${formData.name}! Our team will contact you soon.`);
+    setFormData({ name: '', email: '', phone: '', message: '' });
+  };
+
+  return (
+    <section id="contact" className="w-full min-h-screen bg-black text-white px-6 md:px-12 py-24 flex items-center">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 w-full">
+        
+        {/* Left Side: Info & Text */}
+        <div className="flex flex-col justify-center gap-6">
+          <div className="flex items-center gap-2">
+            <span className="w-12 h-[2px] bg-red-600"></span>
+            <span className="text-red-600 font-bold uppercase tracking-widest text-sm">Get In Touch</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-black tracking-tight uppercase leading-none">
+            Are You Ready To <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600">
+              Start Your Journey?
+            </span>
+          </h2>
+          <p className="text-gray-400 text-sm leading-relaxed max-w-md">
+            Leave your details below. Our certified fitness consultants will reach out within 24 hours to guide you with the perfect plan tailored for your goals.
+          </p>
+          
+          <div className="flex flex-col gap-4 mt-4 text-sm text-gray-500">
+            <div className="flex items-center gap-3">
+              <span className="text-red-600 text-lg">📍</span>
+              <span>Islamabad & Rawalpindi Premium Zones</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-red-600 text-lg">✉</span>
+              <span>join@flexforge.com</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Side: Contact Form Container */}
+        <div className="bg-zinc-950 border border-zinc-900 rounded-2xl p-8 md:p-10 shadow-[0_0_50px_rgba(0,0,0,0.8)] flex flex-col justify-center">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+            
+            {/* Full Name */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold uppercase text-gray-400 tracking-wider">Full Name</label>
+              <input 
+                type="text" 
+                required
+                placeholder="e.g. Umer Rasheed"
+                value={formData.name}
+                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-red-600 transition"
+              />
+            </div>
+
+            {/* Email Address */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold uppercase text-gray-400 tracking-wider">Email Address</label>
+              <input 
+                type="email" 
+                required
+                placeholder="name@example.com"
+                value={formData.email}
+                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-red-600 transition"
+              />
+            </div>
+
+            {/* Phone Number with Validation */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold uppercase text-gray-400 tracking-wider">Phone Number</label>
+              <input 
+                type="text" 
+                inputMode="numeric"
+                required
+                placeholder="e.g. 03001234567"
+                value={formData.phone}
+                onChange={handlePhoneChange}
+                className={`w-full bg-zinc-900/50 border rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition ${
+                  phoneError ? 'border-red-600 focus:border-red-600' : 'border-zinc-800 focus:border-red-600'
+                }`}
+              />
+              {/* Error Message Section */}
+              {phoneError && (
+                <span className="text-xs text-red-500 font-medium mt-1">
+                  ⚠️ {phoneError}
+                </span>
+              )}
+            </div>
+
+            {/* Message */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold uppercase text-gray-400 tracking-wider">Message (Optional)</label>
+              <textarea 
+                rows="4"
+                placeholder="Tell us about your fitness goals..."
+                value={formData.message}
+                onChange={(e) => setFormData({...formData, message: e.target.value})}
+                className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-red-600 transition resize-none"
+              ></textarea>
+            </div>
+
+            <button 
+              type="submit" 
+              className="w-full py-4 rounded-xl font-bold bg-red-600 text-white hover:bg-red-700 active:bg-red-800 transition uppercase text-xs tracking-widest mt-2 cursor-pointer shadow-lg shadow-red-600/10"
+            >
+              Submit Application
+            </button>
+
+          </form>
+        </div>
+
+      </div>
+    </section>
+  );
+};
+
+export default Contact;
