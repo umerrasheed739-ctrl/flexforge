@@ -46,10 +46,10 @@ const CheckoutModal = ({ isOpen, onClose, selectedPlan, onSuccess }) => {
       if (onSuccess) {
         onSuccess(`Welcome to the Forge! Your ${selectedPlan?.name || 'Plan'} is successfully activated 💪`);
       }
-    } catch (error) {
-      console.error("Submission error:", error);
-      alert("Failed to join. Please try again.");
-    }
+    }  catch (error) {
+  console.error("Submission error:", error.response?.data || error.message);
+  alert("Error: " + (error.response?.data?.error || "Failed to join"));
+}
   };
 
   if (!isOpen) return null;
