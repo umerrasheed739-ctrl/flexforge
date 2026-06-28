@@ -9,8 +9,8 @@ const AdminDashboard = () => {
     document.title = "FlexForge - Admin";
     const fetchData = async () => {
       try {
-        const memRes = await axios.get('http://localhost:5000/api/memberships');
-        const conRes = await axios.get('http://localhost:5000/api/contacts');
+        const memRes = await axios.get('https://flexforge-backend-production.up.railway.app/api/memberships');
+        const conRes = await axios.get('https://flexforge-backend-production.up.railway.app/api/contacts');
         setMemberships(memRes.data);
         setContacts(conRes.data);
       } catch (error) {

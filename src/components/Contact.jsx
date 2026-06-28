@@ -36,7 +36,7 @@ const Contact = () => {
     setPhoneError('');
 
     try {
-      await axios.post('http://localhost:5000/api/contact', formData);
+      await axios.post('https://flexforge-backend-production.up.railway.app/api/contact', formData);
       setIsSuccessOpen(true); // Popup open hoga
       setFormData({ name: '', email: '', phone: '', message: '' }); // Form clear
     } catch (error) {

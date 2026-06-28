@@ -14,7 +14,7 @@ const MemberPortal = () => {
     try {
       // trim() extra spaces ko remove kar dega
       const cleanEmail = email.trim();
-      const res = await axios.get(`http://localhost:5000/api/member/${cleanEmail}`);
+      const res = await axios.get(`https://flexforge-backend-production.up.railway.app/api/member/${cleanEmail}`);
       setData(res.data);
     } catch (err) {
       alert("Member not found! Please check your email address.");

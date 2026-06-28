@@ -39,7 +39,7 @@ const CheckoutModal = ({ isOpen, onClose, selectedPlan, onSuccess }) => {
     try {
       // Data backend ko bhej rahe hain (selectedPlan ka naam bhi add kiya)
       const dataToSave = { ...formData, plan: selectedPlan?.name };
-      await axios.post('http://localhost:5000/api/membership', dataToSave);
+      await axios.post('https://flexforge-backend-production.up.railway.app/api/membership', dataToSave);
 
       // Success logic
       handleClose();
