@@ -11,6 +11,8 @@ import FAQ from '../components/FAQ';
 import CheckoutModal from '../components/CheckoutModal'; 
 import SuccessNotification from '../components/SuccessNotification';
 
+
+
 const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);

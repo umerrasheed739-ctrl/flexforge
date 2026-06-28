@@ -15,11 +15,12 @@ const Navbar = () => {
           </a>
 
           {/* Desktop Menu */}
-          <ul className="hidden md:flex items-center gap-8 text-sm font-semibold tracking-wide">
+          <ul className="hidden md:flex items-center gap-6 text-sm font-semibold tracking-wide">
             <li><a href="#" className="text-gray-400 hover:text-white transition duration-300">Home</a></li>
             <li><a href="#about" className="text-gray-400 hover:text-white transition duration-300">About</a></li>
             <li><a href="#membership" className="text-gray-400 hover:text-white transition duration-300">Membership</a></li>
             <li><a href="#trainers" className="text-gray-400 hover:text-white transition duration-300">Trainers</a></li>
+            <li><a href="/member-portal" className="text-red-500 hover:text-white transition duration-300 border-l border-zinc-800 pl-6">Member Portal</a></li>
           </ul>
 
           {/* Desktop CTA Button */}
@@ -48,15 +49,16 @@ const Navbar = () => {
           <li><a href="#about" onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-red-600 transition block py-2">About</a></li>
           <li><a href="#membership" onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-red-600 transition block py-2">Membership</a></li>
           <li><a href="#trainers" onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-red-600 transition block py-2">Trainers</a></li>
+          <li className="border-t border-zinc-800 pt-4"><a href="/member-portal" onClick={() => setIsOpen(false)} className="text-red-500 hover:text-white transition block py-2">Member Portal</a></li>
         </ul>
 
         <div className="mt-4">
-  <a href="#membership" 
-     onClick={() => setIsOpen(false)} 
-     className="inline-block w-full px-5 py-3 rounded-xl font-bold border border-red-600 bg-red-600 text-white text-center uppercase tracking-wider cursor-pointer">
-     JOIN NOW
-  </a>
-</div>
+          <a href="#membership" 
+             onClick={() => setIsOpen(false)} 
+             className="inline-block w-full px-5 py-3 rounded-xl font-bold border border-red-600 bg-red-600 text-white text-center uppercase tracking-wider cursor-pointer">
+             JOIN NOW
+          </a>
+        </div>
       </div>
 
       {isOpen && <div onClick={() => setIsOpen(false)} className="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 md:hidden"></div>}
